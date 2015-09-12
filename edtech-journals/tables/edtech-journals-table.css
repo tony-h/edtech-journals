@@ -1,0 +1,77 @@
+/*
+ * Contains any table specific styles/overrides
+ *	
+ * LICENSE: The MIT License (MIT)
+ *
+ * @author     Tony Hetrick <tony.hetrick@gmail.com>
+ * @copyright  [2015] [edtechjournals.org]
+ * @license    http://choosealicense.com/licenses/mit/
+*/
+
+div.instructions {
+	border: 2px solid #eee;
+	border-radius: 6px;
+	padding: 5px;
+	font-size: small;
+}
+
+a.lightbox-popup {
+	color: inherit;
+	text-decoration: none;
+	border-bottom: 1px dotted;
+}
+
+/********************** Filter/search box styles **********************/
+
+/* Positions the filter/search box */
+div.footable-filter-container input[type=text] {
+	
+	/* Creates some space between the text box and the table */
+	margin-bottom: 5px;
+	float: right;
+}
+
+div.journal-count-container {
+	float: right;
+}
+
+/********************** Column controls styles **********************/
+
+div.column-controls-container {
+	float: left;
+}
+
+/* Positioning for the column controls checkboxes */
+div.column-controls-container  input[type=checkbox]{
+	vertical-align: middle;
+}
+
+/* Styling of the separator */
+div.column-controls-container span.separator {
+	font-weight: bold;
+	  font-size: larger;
+}
+
+/********************** Pagination styles *********************
+	These are mainly hacks as the overflow isn't working.
+	Essentially, there isn't enough space allocated for the true width of the page 
+	buttons. When the buttons get to the edge of the table, they don't overflow, but 
+	stack as stairs. I can't find how to prevent to that. 
+*/
+
+div.pagination {
+	text-align: left;
+	float: left;
+}
+
+div.pagination ul {
+	background-color:#dce9f9;
+	background-image:-webkit-gradient(linear,left top,left bottom,from(#ebf3fc),to(#dce9f9));
+}
+
+div.pagination ul li.footable-page a {
+	background-color: #fff;
+}
+
+/********************** End pagination styles **********************/
+

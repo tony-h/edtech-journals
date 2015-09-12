@@ -1,0 +1,33 @@
+/*
+ * Contains any lightbox specific styles/overrides
+ *	
+ * LICENSE: The MIT License (MIT)
+ *
+ * @author     Tony Hetrick <tony.hetrick@gmail.com>
+ * @copyright  [2015] [edtechjournals.org]
+ * @license    http://choosealicense.com/licenses/mit/
+*/
+
+
+/* Columns inside of the lightbox */
+div.journal-lightbox .category-column {
+	font-weight: bold;
+	float: left;
+	margin-right: 15px;
+}
+
+/* Line separator inside of the lightbox */
+div.journal-lightbox br{
+
+	/* Adds some spacing between lines */
+	line-height: 150%;
+}
+
+/* Add some style hacks since things are disabled by FancyBox */
+div.journal-lightbox  h3 {
+	
+	font-size: larger;
+	
+	/* prevents abnormal wrapping of the text */
+	width: 105%; 	
+}
