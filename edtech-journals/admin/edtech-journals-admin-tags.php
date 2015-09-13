@@ -10,6 +10,9 @@
  * @license    http://choosealicense.com/licenses/mit/
 */
 
+# Wordpress security recommendation
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
 ?>
 
 <div class="wrap">
@@ -27,7 +30,7 @@
 	<div>
 		<hr />
 		<h2></h2>
-		<form name="rebuild_tags" method="post" action="<?php echo get_server_path_request(); ?>">
+		<form name="rebuild_tags" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 			<input type="hidden" name="rebuild_tags_submit" value="Y">
 			<p class="submit">
 				<!-- <input type="submit" name="Submit" value="Rebuild Tags" /> -->
@@ -43,8 +46,8 @@
  */
 function display_tables() {
 
-	$table_list = get_tableList();	
-	$html = "<li><a href=\"" . $_SERVER['REQUEST_URI'] . "&table=%s\">%s</a></li>";
+	$table_list = EDJ_Functions::get_tableList();	
+	$html = '<li><a href="' . $_SERVER['REQUEST_URI'] . '&table=%s">%s</a></li>';
 	
 	# Loop through each table and build a corresponding <item> tag
 	foreach($table_list as $table_name) { 
@@ -59,13 +62,13 @@ function display_tables() {
 
 	if (!isset($_GET["table"])) {
 		$message = "No table selected";
-		print_message($message, "warning");
+		EDJ_Functions::print_message($message, "warning");
 		return;
 	}
 	
 	$db_table_name = $_GET["table"];
 
-	$columns_in_table = get_table_column_names($db_table_name);
+	$columns_in_table = EDJ_Functions::get_table_column_names($db_table_name);
 	build_select_columns_form($columns_in_table);
 	
 	if(isset($_POST['display_tag_data']) && $_POST['display_tag_data'] == 'Y') {
@@ -75,8 +78,8 @@ function display_tables() {
 			display_tag_data($db_table_name, $_POST['column']);
 		}
 		else {
-			$message = "Please select a column";
-			print_message($message, "error");
+			$message = 'Please select a column';
+			EDJ_Functions::print_message($message, 'error');
 		}
 	}
 }
@@ -87,7 +90,7 @@ function display_tables() {
  */
  function build_select_columns_form($column_list) {
 ?>
-		<form name="rebuild_tags" method="post" action="<?php echo get_server_path_request(); ?>">
+		<form name="rebuild_tags" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 			<input type="hidden" name="display_tag_data" value="Y">
 <?php foreach ($column_list as $column) { 
 	
@@ -95,7 +98,7 @@ function display_tables() {
 	# have to check the boxex again for a different set
 	$checked = "";
 	if (is_selected($column))
-		$checked = "checked";
+		$checked = 'checked';
 ?>
 			<label><input type="checkbox" name="column[]" 
 							value="<?php echo $column ?>" 
@@ -144,11 +147,11 @@ function display_tag_data($db_table_name, $column_list) {
 	
 	foreach ($column_list as $header) {
 	
-		echo "<h4>$header</h4>";
+		echo '<h4>$header</h4>';
 		
-		$tag_array = explode(",", $tag_data[$header]);
+		$tag_array = explode(',', $tag_data[$header]);
 		foreach($tag_array as $tag){ 
-			echo "$tag<br />";
+			echo '$tag<br />';
 		}		
 	}
 }
@@ -161,16 +164,16 @@ function display_tag_data($db_table_name, $column_list) {
  */
 function get_column_data($db_table_name, $columns_array) {
 	
-	$columns_for_query = "";
+	$columns_for_query = '';
 	
 	foreach($columns_array as $selected){
-		$columns_for_query .= $selected . ",";
+		$columns_for_query .= $selected . ',';
 	}
 	$columns_for_query = rtrim($columns_for_query, ',');
 	
 	# Query the DB and get the data
 	global $wpdb;
-	$sql = "SELECT DISTINCT $columns_for_query FROM $db_table_name";
+	$sql = 'SELECT DISTINCT $columns_for_query FROM $db_table_name';
 	$results = $wpdb->get_results($sql);
 
 	# KV paired array per each row
@@ -184,8 +187,8 @@ function get_column_data($db_table_name, $columns_array) {
 		foreach($results as $row) {
 		
 			$data = $row->$col_name;
-			if ($data != "") {
-				$cummulative_list .= $data . ",";
+			if ($data != '') {
+				$cummulative_list .= $data . ',';
 			//	array_push($row_array, $data);
 			}
 		}	

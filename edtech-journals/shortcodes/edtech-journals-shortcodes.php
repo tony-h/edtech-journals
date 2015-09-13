@@ -25,7 +25,7 @@ function handle_table_shortcode($atts, $content=''){
 	# Include the lightbox client and server side code. This needs to be inside
 	# of the event handler to be processed after the main WP code is loaded
 	require_once INCLUDES_DIR . '/header.inc';
-	require_once LIGHTBOX_DIR . '/edtech-journals-lightbox.php';
+	require_once LIGHTBOX_DIR . '/class-edtech-journals-lightbox.php';
 	require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';	
 	
 	extract(shortcode_atts(array(
@@ -39,9 +39,9 @@ function handle_table_shortcode($atts, $content=''){
 	# Extract the shortcode data from the shortcode text strings
 	# Remove any additional whitespace from the shortcode values
 	# This allows for entry as: val1,val2,val3 or val1, val2, val3
-	$columns_array = trim_array_values(explode(",", $columns));
-	$titles_array = trim_array_values(explode(",", $titles));
-	$options_array = trim_array_values(explode(",", $options));
+	$columns_array = EDJ_Functions::trim_array_values(explode(",", $columns));
+	$titles_array = EDJ_Functions::trim_array_values(explode(",", $titles));
+	$options_array = EDJ_Functions::trim_array_values(explode(",", $options));
 	
 	# process the code
 	process_shortcode($table, $columns_array, $titles_array, $options_array);
@@ -71,10 +71,10 @@ function process_shortcode($table_name, $columns_array,  $titles_array, $options
 	
 	# Array for the lightbox data. Display after the table
 	$lightbox_html_array = array();
-	$table_headers = get_table_column_names($table_name);
+	$table_headers = EDJ_Functions::get_table_column_names($table_name);
 	
 	# Build the table
-	$caption = get_table_comment($table_name);
+	$caption = EDJ_Functions::get_table_comment($table_name);
 	display_table_header($caption, $titles_array, $shortcodeOptions);
 	
 	# Iterate through each row a build a corresponding <tr> tag
@@ -83,10 +83,10 @@ function process_shortcode($table_name, $columns_array,  $titles_array, $options
 		if ($shortcodeOptions->hideLightboxState()) {
 			display_table_row($row, $columns_array);
 		} else {	
-			$content_id = get_unique_id();
+			$content_id = EDJ_Functions::get_unique_id();
 			display_table_row_for_lightbox($row, $columns_array, $content_id);
 			$lightbox_html_array[] = 
-				build_lightbox_with_db_object($row, $table_headers, $content_id);
+				EDJ_Lightbox::build_lightbox_with_db_object($row, $table_headers, $content_id);
 		}
 	}
 	

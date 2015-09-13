@@ -9,6 +9,9 @@
  * @license    http://choosealicense.com/licenses/mit/
 */
 
+# Wordpress security recommendation
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
 require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';	
 
 ?>
@@ -18,8 +21,8 @@ require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';
 	<p>This plug makes use of custom shortcodes that render a table based on the database.<p>
 	<p>These codes provide a template or starting point to help customize the fields to display. Please note: The <i>columns</i> and <i>titles</i> should contain the same number of elements.</p>
 <?php 
-	if (isset($_GET["shortcode"]) && $_GET["shortcode"] != "") {
-		customize_shortcode($_GET["shortcode"]);
+	if (isset($_GET['shortcode']) && $_GET['shortcode'] != '') {
+		customize_shortcode($_GET['shortcode']);
 	} else {
 		echo display_short_codes(); 
 	}
@@ -35,12 +38,12 @@ require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';
  */
 function display_short_codes() {
 
-	$table_list = get_tableList();
+	$table_list = EDJ_Functions::get_tableList();
 	$count = count($table_list);
 	
 	if ($count <= 0) {
-		print_message("No '" . EDTECH_TABLE_PREFIX . "' table exists in the database.
-				Please add a database.", "warning");
+		EDJ_Functions::print_message("No '" . EDTECH_TABLE_PREFIX . "' table exists in the database.
+				Please add a database.", 'warning');
 		return;
 	}
 	
@@ -48,9 +51,8 @@ function display_short_codes() {
 	foreach($table_list as $table_name) { 
 		
 		# Build a default shortcode (with everything in it
-		$columns_in_table = get_table_column_names($table_name);
+		$columns_in_table = EDJ_Functions::get_table_column_names($table_name);
 		display_shortcode($table_name, $columns_in_table);
-		
 ?>
 		<a href="<?php echo $_SERVER['REQUEST_URI'] . "&shortcode=$table_name"; ?>">Customize <i><?php echo $table_name; ?></i></a>
 		<hr />
@@ -71,9 +73,9 @@ function display_short_codes() {
 		
 		$column_count = count($columns);
 
-		$column_list = "";
+		$column_list = '';
 		foreach($columns as $columnName) { 
-			$column_list .= $columnName . ", ";
+			$column_list .= $columnName . ', ';
 		}
 		
 		# Remove the trailing comma and space
@@ -84,7 +86,7 @@ function display_short_codes() {
 		$column_display_list = str_replace('_', ' ', $column_list); 
 		
 		# Convert the array to a comma delimited string
-		$shortcode_options = implode(",", $options);
+		$shortcode_options = implode(',', $options);
 		
 		echo "<i>$table_name</i> code</h4>";
 
@@ -95,7 +97,7 @@ EOD;
 		
 		# Assemble the components for the shortcodes
 		$display_all_columns = sprintf($shortcode, $column_list, $column_display_list, $shortcode_options);
-		print_message($display_all_columns, "edtech-shortcode");
+		EDJ_Functions::print_message($display_all_columns, 'edtech-shortcode');
 }
 
 
@@ -106,7 +108,7 @@ EOD;
  function customize_shortcode($db_table_name) {
 
 	# Get the list of columns
-	$column_list = get_table_column_names($db_table_name);
+	$column_list = EDJ_Functions::get_table_column_names($db_table_name);
  
 	# Get the options object for the available codes
 	$shortcodeOptions = new ShortcodeOptions();
@@ -116,13 +118,13 @@ EOD;
 	
 	if(isset($_POST['build_shortcode']) && $_POST['build_shortcode'] == 'Y') {
 
-		$columns = get_post_array("column");
-		$options = get_post_array("option");
+		$columns = EDJ_Functions::get_post_array('column');
+		$options = EDJ_Functions::get_post_array('option');
 	
 		# Produce a warning for empty codes
 		if (count($columns) == 0) {
-			$message = "Please note: This shortcode contains no data";
-			print_message($message, "warning");
+			$message = 'Please note: This shortcode contains no data';
+			EDJ_Functions::print_message($message, 'warning');
 		}
 		
 		display_shortcode($db_table_name, $columns, $options);
@@ -138,7 +140,7 @@ EOD;
  function build_selection_form($table_name, $column_list, $option_list) {
  ?>
 		<h3>Customizing shortcode for <i><?php echo $table_name; ?></i></h3>
-		<form class="shortcodes" name="rebuild_tags" method="post" action="<?php echo get_server_path_request(); ?>">
+		<form class="shortcodes" name="rebuild_tags" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 			<input type="hidden" name="build_shortcode" value="Y">
 			
 			<div class="checkboxes">
@@ -166,11 +168,11 @@ EOD;
 		# If column has been check from the POST, check it so the user doesn't
 		# have to check the boxes again for a different set
 		# Default: unchecked
-		$checked = "";
-		if (in_array($column, get_post_array("column")))
-			$checked = "checked";
+		$checked = '';
+		if (in_array($column, EDJ_Functions::get_post_array('column')))
+			$checked = 'checked';
 
-		build_check_box("column[]", $column, $checked, $column);		
+		build_check_box('column[]', $column, $checked, $column);		
 	} 
 }
 
@@ -186,11 +188,11 @@ function insert_option_checkboxes($option_list) {
 		# If column has been check from the POST, check it so the user doesn't
 		# have to check the boxes again for a different set
 		# Default: unchecked
-		$checked = "";
-		if (in_array($option, get_post_array("option")))
-			$checked = "checked";
+		$checked = '';
+		if (in_array($option, EDJ_Functions::get_post_array('option')))
+			$checked = 'checked';
 
-		build_check_box("option[]", $option, $checked, $option);
+		build_check_box('option[]', $option, $checked, $option);
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * The EdTechJournalsAdmin class which controls the edtech journals admin code
+ * The EDJ_Admin class which controls the edtech journals admin code
  *	
  * LICENSE: The MIT License (MIT)
  *
@@ -9,8 +9,12 @@
  * @license    http://choosealicense.com/licenses/mit/
 */
 
+# Wordpress security recommendation
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
+
 // Initialize the plugin
-add_action( 'plugins_loaded', create_function( '', '$edtechJournalsAdmin = new EdTechJournalsAdmin;' ) );
+add_action( 'plugins_loaded', create_function( '', '$edj_Admin = new EDJ_Admin;' ) );
 
 
 /*
@@ -29,7 +33,7 @@ add_action( 'plugins_loaded', create_function( '', '$edtechJournalsAdmin = new E
 		5) Match the function call to the above name
 	
  */
-class EdTechJournalsAdmin {
+class EDJ_Admin {
 	
 	 // Keys used for the tab data and settings
 	private $plugin_label = 'EdTech Journals';

@@ -147,8 +147,8 @@ EOD;
 		 #If starts with http, build an <a> tag
 		 if (strpos($td_data, 'http') === 0) {
 
-			// get_url_text() function is in edtech-journals-functions.php
-			$url_text = get_url_text($columns_array[$i]); 
+			// EDJ_Functions::get_url_text() function is in edtech-journals-functions.php
+			$url_text = EDJ_Functions::get_url_text($columns_array[$i]); 
 			$td_data = sprintf($journal_url_html_format, $td_data, $url_text);
 		 }		
 		
@@ -193,8 +193,8 @@ EOD;
 		 #If starts with http, build an <a> tag
 		 if (strpos($td_data, 'http') === 0) {
 
-			// get_url_text() function is in edtech-journals-functions.php
-			$url_text = get_url_text($columns_array[$i]); 
+			// EDJ_Functions::get_url_text() function is in edtech-journals-functions.php
+			$url_text = EDJ_Functions::get_url_text($columns_array[$i]); 
 			$td_data = sprintf($journal_url_html_format, $td_data, $url_text);
 		 }	
 		 
@@ -280,7 +280,7 @@ function display_pagination_options($options = null) {
 
 ?>
 	<div class="instructions">
-		<form id="pagination_form" action="<?php echo get_server_path_request(); ?>">
+		<form id="pagination_form" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 		
 <?php
 	# Since the form strips off other GET vars, we need to add them as hidden values here

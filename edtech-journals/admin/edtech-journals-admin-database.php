@@ -8,7 +8,10 @@
  * @copyright  [2015] [edtechjournals.org]
  * @license    http://choosealicense.com/licenses/mit/
 */
-	
+
+# Wordpress security recommendation
+defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
 ?>
 	<div class="wrap">
 		<h2>EdTech Journals Database Tools</h2>
@@ -32,7 +35,7 @@
 			show_delete_table_form();
 		}		
 	} elseif(isset($_POST['delete_table_submit']) && $_POST['delete_table_submit'] == 'Y') {		
-		$delete_table_name = $_POST["delete-table"];
+		$delete_table_name = $_POST['delete-table'];
 		show_confirm_delete_table_form($delete_table_name);
 	} else {
 		show_delete_table_form();
@@ -51,7 +54,7 @@
 	# 3) Processes the request	
 	if(isset($_POST['confirm_create_table_submit']) && $_POST['confirm_create_table_submit'] == 'Y') {
 		if(isset($_POST['Submit_Yes']) && $_POST['Submit_Yes'] == 'Yes') {
-			$create_table_name = $_POST["create-table"];
+			$create_table_name = $_POST['create-table'];
 			create_table($create_table_name);
 		} else {
 			show_create_table_form();
@@ -64,7 +67,7 @@
 		
 		if ($create_table_name == $prefix) {
 			$message = "'$create_table_name' is not a valid table name";
-			print_message($message, "error");
+			EDJ_Functions::print_message($message, 'error');
 			show_create_table_form();
 		} else {
 			show_confirm_create_table_form($create_table_name);
@@ -87,10 +90,10 @@
 function show_delete_table_form() {
 ?>
 		<p>Select a table and press the delete button.</p>
-		<form name="delete_table" method="post" action="<?php echo get_server_path_request(); ?>">
+		<form name="delete_table" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 			<input type="hidden" name="delete_table_submit" value="Y">
 			<select name="delete-table">
-				<?php echo populate_select_control_from_table_list(); ?>
+				<?php echo EDJ_Functions::populate_select_control_from_table_list(); ?>
 			</select>
 			<p class="submit">
 				<input type="submit" name="Submit" value="Delete table" /> <br />
@@ -107,7 +110,7 @@ function show_delete_table_form() {
  */
 function show_confirm_delete_table_form($table_name) {
 ?>
-		<form name="delete_table_confirm" method="post" action="<?php echo get_server_path_request(); ?>">		
+		<form name="delete_table_confirm" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">		
 			<p>Are you sure you want to permanently delete table <code><?php echo $table_name; ?></code>?
 			<input type="hidden" name="confirm_delete_table_submit" value="Y">
 			<input type="hidden" name="delete-table" value="<?php echo $table_name; ?>">
@@ -125,14 +128,14 @@ function delete_table($table_name) {
 	<p>Deleting table <code><?php echo $table_name; ?></code>. . . 
 <?php
 
-	$return_value = drop_table($table_name);
+	$return_value = EDJ_Functions::drop_table($table_name);
 	
 	if ($return_value != 0) {
 		$message = "Deleted table '$table_name'";
-		print_message($message, "success");
+		EDJ_Functions::print_message($message, 'success');
 	} else {
 		$message = "The operation failed to delete table '$table_name'. Most likely this is a SQL error.";
-		print_message($message, "error");
+		EDJ_Functions::print_message($message, 'error');
 	}
 }
 
@@ -148,7 +151,7 @@ function show_create_table_form() {
 			<li>All caps will automatically be changed to lower case: <code>'ABC' -> 'abc'</code></li>
 		</ol>
 		<p></p>
-		<form name="create_table" method="post" action="<?php echo get_server_path_request(); ?>">
+		<form name="create_table" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">
 			<input type="hidden" name="create_table_submit" value="Y">
 			<label>Enter name of the table: <code><span class="table-prefix"><?php echo EDTECH_TABLE_PREFIX; ?></span></code><input type="text" name="create-table" /></label>
 			<p class="submit">
@@ -165,7 +168,7 @@ function show_create_table_form() {
 function show_confirm_create_table_form($table) {
 
 ?>
-		<form name="delete_table_confirm" method="post" action="<?php echo get_server_path_request(); ?>">		
+		<form name="delete_table_confirm" method="post" action="<?php echo EDJ_Functions::get_server_path_request(); ?>">		
 			<p>Are you sure you want to create table <code><?php echo $table; ?></code>?
 			<input type="hidden" name="confirm_create_table_submit" value="Y">
 			<input type="hidden" name="create-table" value="<?php echo $table; ?>">
@@ -198,17 +201,17 @@ function create_table($table_name, $table_comment = "") {
 ?>
 	<p>Creating table <code><?php echo $table_name; ?></code>. . . 
 <?php
-	$return_value = create_empty_table($table_name, $table_comment);
+	$return_value = EDJ_Functions::create_empty_table($table_name, $table_comment);
 
 	if ($return_value != '') {
 		$message = "Created table '$table_name'";
-		print_message($message, "success");
+		EDJ_Functions::print_message($message, 'success');
 	} else {
 		$message = "The operation failed to create table '$table_name'. 
 			Please verify only a-z and 1-9 are used or if the table already exists.";
-		print_message($message, "error");
+		EDJ_Functions::print_message($message, 'error');
 		$message = "Operation resulted in error '$return_value'.";
-		print_message($message, "error");
+		EDJ_Functions::print_message($message, 'error');
 	}
 }
 
