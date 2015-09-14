@@ -12,7 +12,7 @@
 # Wordpress security recommendation
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';	
+require_once SHORTCODES_DIR . EDJ_PLUGIN_SLUG . 'shortcodes.php';	
 
 ?>
 

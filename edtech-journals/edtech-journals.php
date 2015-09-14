@@ -44,54 +44,45 @@ define('JOURNAL_VIEW_SHORTCODE', 'journal-view');
 // Database table prefix for the edtech journals
 define('EDTECH_TABLE_PREFIX', 'edtech_');
 
+define('EDJ_PLUGIN_SLUG', 'edj-');
+define('EDJ_CLASS_PLUGIN_SLUG', 'class-edj-');
+
 // Plugin base dir/url constants
 define('PLUGIN_BASE_DIR', plugin_dir_path( __FILE__ ));
 define('PLUGIN_BASE_URL', plugins_url('', __FILE__));
 
-// One stop shop for changing dirs
-define('ADMIN_DIR', PLUGIN_BASE_DIR . '/admin');
+// One stop shop for changing dirs and urls
+define('ADMIN_DIR', PLUGIN_BASE_DIR . 'admin/');
+define('INCLUDES_DIR', PLUGIN_BASE_DIR . 'includes/');
+define('LIBRARIES_DIR', PLUGIN_BASE_DIR . 'libraries/');
+define('LIGHTBOX_LIB_DIR', PLUGIN_BASE_DIR . 'libraries/fancybox/');		
+define('LIGHTBOX_DIR', PLUGIN_BASE_DIR . 'lightbox/');		
+define('SHORTCODES_DIR', PLUGIN_BASE_DIR . 'shortcodes/');
+define('TABLES_DIR', PLUGIN_BASE_DIR . 'tables/');
+
 define('ADMIN_URL', PLUGIN_BASE_URL . '/admin');
-define('INCLUDES_DIR', PLUGIN_BASE_DIR . '/includes');
 define('INCLUDES_URL', PLUGIN_BASE_URL . '/includes');
-define('LIBRARIES_DIR', PLUGIN_BASE_DIR . '/libraries');
 define('LIBRARIES_URL', PLUGIN_BASE_URL . '/libraries');
-define('LIGHTBOX_LIB_DIR', PLUGIN_BASE_DIR . '/libraries/fancybox');		
 define('LIGHTBOX_LIB_URL', PLUGIN_BASE_URL . '/libraries/fancybox');		
-define('LIGHTBOX_DIR', PLUGIN_BASE_DIR . '/lightbox');		
 define('LIGHTBOX_URL', PLUGIN_BASE_URL . '/lightbox');		
-define('SHORTCODES_DIR', PLUGIN_BASE_DIR . '/shortcodes');
 define('SHORTCODES_URL', PLUGIN_BASE_URL . '/shortcodes');
-define('TABLES_DIR', PLUGIN_BASE_DIR . '/tables');
 define('TABLES_URL', PLUGIN_BASE_URL . '/tables');
 
 
 // Include the working files
-require 'edtech-journals-strings.php';
-require_once 'edtech-journals-functions.php';
-require_once SHORTCODES_DIR . '/edtech-journals-shortcodes.php';
-require_once TABLES_DIR . '/class-edtech-journals-tables.php';
+require EDJ_PLUGIN_SLUG . 'strings.php';
+require_once EDJ_PLUGIN_SLUG . 'functions.php';
+require_once SHORTCODES_DIR . EDJ_PLUGIN_SLUG . 'shortcodes.php';
+require_once TABLES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'tables.php';
 
 
 # -- Admin hooks / handles -- #
 
 // If logged in as admin, enable the admin panel
 if ( 'is_admin' ) {
+
 	// Load the admin class
-	require_once 'admin/class-edtech-journals-admin.php';
-}
-
-# -- Plug page custom menu items --#
-// Add settings link on plugin page
-$plugin = plugin_basename(__FILE__); 
-add_filter('plugin_action_links_$plugin', 'plugin_settings_link' );
-
-/*
- * Handles the requests to add a custom links to the plugin page
- */
-function plugin_settings_link($links, $admin_page ='') { 
-  $settings_link = '<a href="options-general.php?page=edtech-journals-admin.php">Settings</a>'; 
-  array_push($links, $settings_link); 
-  return $links; 
+	require_once ADMIN_DIR . EDJ_CLASS_PLUGIN_SLUG . 'admin.php';
 }
 
 ?>

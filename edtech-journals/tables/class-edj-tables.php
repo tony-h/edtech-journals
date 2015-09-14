@@ -12,7 +12,7 @@
 # Wordpress security recommendation
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';	
+require_once SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php';	
 
 /**
  * EDJ_Functions contains commonly used static functions
@@ -31,9 +31,9 @@ require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';
 	 */
 	function display_table_header($caption, $headers, $options = null) {
 
-
-		if ($options == null)
+		if ($options == null) {
 			$options = new EDJ_Shortcode_Options();
+		}
 		
 		# This is only for foo tables, but having the attribute won't hurt
 		# data-page=true (show pages)
@@ -42,8 +42,9 @@ require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';
 		# Default state is true, which enables pagination
 		$data_page = 'true';
 		
-		if (!EDJ_Table::get_pagination_state($options))
-			$data_page='false';	
+		if (!EDJ_Table::get_pagination_state($options)) {
+			$data_page='false';
+		}
 
 		# Show filter counter if not set to hide
 		if (!$options->hideFilterCounterState()) {
@@ -285,10 +286,11 @@ EOD;
 		$show_data_in_pages_checked = '';
 		$show_all_data_checked = '';
 		
-		if (EDJ_Table::get_pagination_state($options))
+		if (EDJ_Table::get_pagination_state($options)) {
 			$show_data_in_pages_checked = 'checked';
-		else if(!EDJ_Table::get_pagination_state($options))
-			$show_all_data_checked = 'checked';		
+		} else if(!EDJ_Table::get_pagination_state($options)) {
+			$show_all_data_checked = 'checked';
+		}
 
 	?>
 		<div class="instructions">

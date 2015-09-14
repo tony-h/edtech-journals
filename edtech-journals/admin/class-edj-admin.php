@@ -38,10 +38,10 @@ class EDJ_Admin {
 	 // Keys used for the tab data and settings
 	private $plugin_label = 'EdTech Journals';
 	private $plugin_url_slug = 'edtech-journals-admin';
-	private $journals_admin_key = 'edtech-journals-admin-journals';
-	private $shortcodes_admin_key = 'edtech-journals-admin-shortcodes';
-	private $tags_admin_key = 'edtech-journals-admin-tags';
-	private $database_admin_key = 'edtech-journals-admin-database';
+	private $journals_admin_key = 'edj-admin-journals';
+	private $shortcodes_admin_key = 'edj-admin-shortcodes';
+	private $tags_admin_key = 'edj-admin-tags';
+	private $database_admin_key = 'edj-admin-database';
 	private $plugin_settings_tabs = array();
 	
 	/*
