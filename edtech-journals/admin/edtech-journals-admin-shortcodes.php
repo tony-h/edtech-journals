@@ -12,7 +12,7 @@
 # Wordpress security recommendation
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';	
+require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';	
 
 ?>
 
@@ -111,7 +111,7 @@ EOD;
 	$column_list = EDJ_Functions::get_table_column_names($db_table_name);
  
 	# Get the options object for the available codes
-	$shortcodeOptions = new ShortcodeOptions();
+	$shortcodeOptions = new EDJ_Shortcode_Options();
 	$option_list = $shortcodeOptions->getAllOptionsArray(); 
  
 	build_selection_form($db_table_name, $column_list, $option_list);

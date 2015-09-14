@@ -10,14 +10,14 @@
 */
 
 #short codes
-add_shortcode(JOURNAL_VIEW_SHORTCODE, 'handle_table_shortcode');
+add_shortcode(JOURNAL_VIEW_SHORTCODE, 'handle_edj_table_shortcode');
 
 /**
  * Handles the 'journal-view' shortcode
  * @param string $atts attributes of the shortcode
  * @param string $content any prexisting content to append to
  */
-function handle_table_shortcode($atts, $content=''){
+function handle_edj_table_shortcode($atts, $content=''){
 
 	# Begin output buffering (captures any echo/print statements)
 	ob_start();
@@ -26,7 +26,7 @@ function handle_table_shortcode($atts, $content=''){
 	# of the event handler to be processed after the main WP code is loaded
 	require_once INCLUDES_DIR . '/header.inc';
 	require_once LIGHTBOX_DIR . '/class-edtech-journals-lightbox.php';
-	require_once SHORTCODES_DIR . '/edtech-journals-shortcode-options.php';	
+	require_once SHORTCODES_DIR . '/class-edtech-journals-shortcode-options.php';	
 	
 	extract(shortcode_atts(array(
 		'table' => '',		// name of the table to query
@@ -44,7 +44,7 @@ function handle_table_shortcode($atts, $content=''){
 	$options_array = EDJ_Functions::trim_array_values(explode(",", $options));
 	
 	# process the code
-	process_shortcode($table, $columns_array, $titles_array, $options_array);
+	process_edj_shortcode($table, $columns_array, $titles_array, $options_array);
 	
 	# End output buffering and return the captured text 
     $output = ob_get_contents();
@@ -59,7 +59,7 @@ function handle_table_shortcode($atts, $content=''){
  * @param array $columns_titles array of column titles to display
  * @param array $options_array array of options
  */
-function process_shortcode($table_name, $columns_array,  $titles_array, $options_array) {
+function process_edj_shortcode($table_name, $columns_array,  $titles_array, $options_array) {
 
 	# Query the DB and get the data
 	global $wpdb;
@@ -67,7 +67,7 @@ function process_shortcode($table_name, $columns_array,  $titles_array, $options
 	$results = $wpdb->get_results($sql);
 
 	# Get the options
-	$shortcodeOptions = new ShortcodeOptions($options_array);
+	$shortcodeOptions = new EDJ_Shortcode_Options($options_array);
 	
 	# Array for the lightbox data. Display after the table
 	$lightbox_html_array = array();
@@ -75,26 +75,26 @@ function process_shortcode($table_name, $columns_array,  $titles_array, $options
 	
 	# Build the table
 	$caption = EDJ_Functions::get_table_comment($table_name);
-	display_table_header($caption, $titles_array, $shortcodeOptions);
+	EDJ_Table::display_table_header($caption, $titles_array, $shortcodeOptions);
 	
 	# Iterate through each row a build a corresponding <tr> tag
 	foreach($results as $row) {
 		
 		if ($shortcodeOptions->hideLightboxState()) {
-			display_table_row($row, $columns_array);
+			EDJ_Table::display_table_row($row, $columns_array);
 		} else {	
 			$content_id = EDJ_Functions::get_unique_id();
-			display_table_row_for_lightbox($row, $columns_array, $content_id);
+			EDJ_Table::display_table_row_for_lightbox($row, $columns_array, $content_id);
 			$lightbox_html_array[] = 
 				EDJ_Lightbox::build_lightbox_with_db_object($row, $table_headers, $content_id);
 		}
 	}
 	
 	# close out the table
-	display_table_footer();
+	EDJ_Table::display_table_footer();
 
 	#Display option to show pagination or not
-	display_pagination_options($shortcodeOptions);
+	EDJ_Table::display_pagination_options($shortcodeOptions);
 	
 	# now that the table is build, display the hidden lightbox content
 	foreach($lightbox_html_array as $lightbox) {

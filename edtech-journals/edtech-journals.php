@@ -2,7 +2,7 @@
 /*
  * Plugin Name: EdTech Journals
  * Description: A custom display for the open journals
- * Version: 0.3.12
+ * Version: 0.4.0
  * Author: Tony Hetrick (tony.hetrick@gmail.com)
  * Author URI: http://tonyhetrick.com
  * License: The MIT License (MIT)
@@ -69,7 +69,7 @@ define('TABLES_URL', PLUGIN_BASE_URL . '/tables');
 require 'edtech-journals-strings.php';
 require_once 'edtech-journals-functions.php';
 require_once SHORTCODES_DIR . '/edtech-journals-shortcodes.php';
-require_once TABLES_DIR . '/edtech-journals-tables.php';
+require_once TABLES_DIR . '/class-edtech-journals-tables.php';
 
 
 # -- Admin hooks / handles -- #

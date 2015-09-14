@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 /**
  * EDJ_Functions contains commonly used static functions
  *
- * @since 0.3.12
+ * @since 0.4.0
  *
  */
  Class EDJ_Functions {

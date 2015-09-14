@@ -170,19 +170,19 @@ function display_csv_data($rows) {
 
 	# Display the results in a table for quick verification
 	
-	$options = new ShortcodeOptions();
+	$options = new EDJ_Shortcode_Options();
 	$options->hideFilterCounterState(true);
 	$options->hideColumnControlsState(true);
 	
 	$caption = 'Journal Data';
 	array_unshift($rows[0], '#');
-	display_table_header($caption, $rows[0], $options);
+	EDJ_Table::display_table_header($caption, $rows[0], $options);
 
 	# Build the rows
-	display_table_row_admin_table($rows);
+	EDJ_Table::display_table_row_admin_table($rows);
 	
 	# Close out the table
-	display_table_footer();
+	EDJ_Table::display_table_footer();
 }
 
 /*

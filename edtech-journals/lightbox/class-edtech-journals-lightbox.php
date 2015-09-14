@@ -12,7 +12,7 @@
 /**
  * EDJ_Lightbox contains the functions for creating a lightbox
  *
- * @since 0.3.12
+ * @since 0.4.0
  *
  */
  Class EDJ_Lightbox {

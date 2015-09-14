@@ -1,6 +1,6 @@
 <?php
 /*
- * The ShortcodeOptions class is storage container for the shortcodes. 
+ * The EDJ_Shortcode_Options class is storage container for the shortcodes. 
  * It also contains the master shortcode list.
  *	
  * LICENSE: The MIT License (MIT)
@@ -13,15 +13,15 @@
 /**
  * This class contains the options for use in the shortcodes. 
  */
- class ShortcodeOptions {
+ class EDJ_Shortcode_Options {
 	
 	# Array and option keys. The user sees these values in the config options,
 	# so the need to be self-explanatory
 	private $_optionsList;
-	private $_hideLightboxKey = "hide-lightbox";
-	private $_hideFilterCounterKey = "hide-filter-counter";
-	private $_hideColumnControlsKey = "hide-column-controls";
-	private $_disablePaginationKey = "disable-pagination";
+	private $_hideLightboxKey = 'hide-lightbox';
+	private $_hideFilterCounterKey = 'hide-filter-counter';
+	private $_hideColumnControlsKey = 'hide-column-controls';
+	private $_disablePaginationKey = 'disable-pagination';
 	
 	# Boolean options
 	private $_hideLightbox;
@@ -93,9 +93,9 @@
 	 * @param boolean $value of the state to set
 	 * @return boolean a boolean value of the state of value
 	 */
-	public function hideLightboxState($value = "") {
+	public function hideLightboxState($value = '') {
 
-		if ($value != "")
+		if ($value != '')
 			$this->_hideLightbox = $value;
 	
 		return $this->_hideLightbox;	
@@ -106,9 +106,9 @@
 	 * @param boolean $value of the state to set
 	 * @return boolean a boolean value of the state of value
 	 */
-	public function hideFilterCounterState($value = "") {
+	public function hideFilterCounterState($value = '') {
 
-		if ($value != "")
+		if ($value != '')
 			$this->_hideFilterCounter = $value;
 	
 		return $this->_hideFilterCounter;	
@@ -119,9 +119,9 @@
 	 * @param boolean $value of the state to set
 	 * @return boolean a boolean value of the state of value
 	 */
-	public function hideColumnControlsState($value = "") {
+	public function hideColumnControlsState($value = '') {
 
-		if ($value != "")
+		if ($value != '')
 			$this->_hideColumnControls = $value;
 	
 		return $this->_hideColumnControls;	
@@ -132,9 +132,9 @@
 	 * @param boolean $value of the state to set
 	 * @return boolean a boolean value of the state of value
 	 */
-	public function disablePaginationState($value = "") {
+	public function disablePaginationState($value = '') {
 
-		if ($value != "")
+		if ($value != '')
 			$this->_disablePagination = $value;
 	
 		return $this->_disablePagination;	
