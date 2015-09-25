@@ -97,7 +97,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 */
 	function get_plugin_resource_directory() {
 
-		$plugins_resource_dir = PLUGIN_BASE_DIR . "/resources";
+		$plugins_resource_dir = EDJ_PLUGIN_BASE_DIR . "/resources";
 		
 		# If directory does not exist, create it with a default index file.
 		if (!file_exists($plugins_resource_dir)) {

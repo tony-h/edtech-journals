@@ -12,7 +12,7 @@
 # Wordpress security recommendation
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
-require_once SHORTCODES_DIR . EDJ_PLUGIN_SLUG . 'shortcodes.php';	
+require_once EDJ_SHORTCODES_DIR . EDJ_PLUGIN_SLUG . 'shortcodes.php';	
 
 ?>
 

@@ -126,7 +126,7 @@ class EDJ_Admin {
 		require_once $tab . '.php';
 
 		#--- This is where any common includes for the admin code goes ---#
-		include(ADMIN_DIR . '/admin-styles.html');
+		include(EDJ_ADMIN_DIR . '/admin-styles.html');
 	}
 	
 	/*

@@ -24,9 +24,9 @@ function handle_edj_table_shortcode($atts, $content=''){
 
 	# Include the lightbox client and server side code. This needs to be inside
 	# of the event handler to be processed after the main WP code is loaded
-	require_once INCLUDES_DIR . 'header.inc';
-	require_once LIGHTBOX_DIR . EDJ_CLASS_PLUGIN_SLUG . 'lightbox.php';
-	require_once SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php';	
+	require_once EDJ_INCLUDES_DIR . 'header.inc';
+	require_once EDJ_LIGHTBOX_DIR . EDJ_CLASS_PLUGIN_SLUG . 'lightbox.php';
+	require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php';	
 	
 	extract(shortcode_atts(array(
 		'table' => '',		// name of the table to query
