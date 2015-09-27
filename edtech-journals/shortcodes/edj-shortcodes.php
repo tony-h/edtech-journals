@@ -71,7 +71,7 @@ function process_edj_shortcode($table_name, $columns_array, $titles_array, $opti
 
 	# Query the DB and get the data
 	global $wpdb;
-	$sql = build_edj_shortcode_query($table_name, $columns_array, $filters_array);
+	$sql = build_edj_shortcode_query($table_name, $filters_array);
 	$results = $wpdb->get_results($sql);
 
 	# Get the options
