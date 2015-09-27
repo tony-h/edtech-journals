@@ -14,6 +14,7 @@ add_shortcode(JOURNAL_VIEW_SHORTCODE, 'handle_edj_table_shortcode');
 
 /**
  * Handles the 'journal-view' shortcode
+ *
  * @param string $atts attributes of the shortcode
  * @param string $content any prexisting content to append to
  */
@@ -33,18 +34,23 @@ function handle_edj_table_shortcode($atts, $content=''){
 		'columns' => '', 	// a column name or Comma-separated list of columns name
 		'titles' => '', 	// a column title or Comma-separated list of column titles
 		'options' => '', 	// an option or comma-separated list of options
+		'filters' => '', 	// a kv filter or comma-separated list of kv filter pairs
 	), $atts));
 
 	
 	# Extract the shortcode data from the shortcode text strings
 	# Remove any additional whitespace from the shortcode values
 	# This allows for entry as: val1,val2,val3 or val1, val2, val3
-	$columns_array = EDJ_Functions::trim_array_values(explode(",", $columns));
-	$titles_array = EDJ_Functions::trim_array_values(explode(",", $titles));
-	$options_array = EDJ_Functions::trim_array_values(explode(",", $options));
+	$columns_array = EDJ_Functions::trim_array_values(explode(',', $columns));
+	$titles_array = EDJ_Functions::trim_array_values(explode(',', $titles));
+	$options_array = EDJ_Functions::trim_array_values(explode(',', $options));
+	$filters_array = EDJ_Functions::trim_array_values(explode(',', $filters));
+	
+	# Converts array to a KV pair
+	parse_str(str_replace(',', '&', implode(',', $filters_array)), $filters_array);
 	
 	# process the code
-	process_edj_shortcode($table, $columns_array, $titles_array, $options_array);
+	process_edj_shortcode($table, $columns_array, $titles_array, $options_array, $filters_array);
 	
 	# End output buffering and return the captured text 
     $output = ob_get_contents();
@@ -54,16 +60,18 @@ function handle_edj_table_shortcode($atts, $content=''){
 
 /**
  * Queries the database for journal entries and processes the data
+ *
  * @param string $table name of table to query in the db
  * @param array $columns_array array of columns to display
  * @param array $columns_titles array of column titles to display
  * @param array $options_array array of options
+ * @param array $$filters_array array of filters for query
  */
-function process_edj_shortcode($table_name, $columns_array,  $titles_array, $options_array) {
+function process_edj_shortcode($table_name, $columns_array, $titles_array, $options_array, $filters_array) {
 
 	# Query the DB and get the data
 	global $wpdb;
-	$sql = "SELECT * FROM $table_name";
+	$sql = build_edj_shortcode_query($table_name, $columns_array, $filters_array);
 	$results = $wpdb->get_results($sql);
 
 	# Get the options
@@ -81,10 +89,14 @@ function process_edj_shortcode($table_name, $columns_array,  $titles_array, $opt
 	foreach($results as $row) {
 		
 		if ($shortcodeOptions->hideLightboxState()) {
+			
 			EDJ_Table::display_table_row($row, $columns_array);
-		} else {	
+			
+		} else {
+			
 			$content_id = EDJ_Functions::get_unique_id();
 			EDJ_Table::display_table_row_for_lightbox($row, $columns_array, $content_id);
+			
 			$lightbox_html_array[] = 
 				EDJ_Lightbox::build_lightbox_with_db_object($row, $table_headers, $content_id);
 		}
@@ -100,6 +112,47 @@ function process_edj_shortcode($table_name, $columns_array,  $titles_array, $opt
 	foreach($lightbox_html_array as $lightbox) {
 		echo $lightbox;
 	}
+}
+
+/**
+ * Builds the SQL query for the dataset
+ * 
+ * @param string $table name of table to query in the db
+ * @param array $$filters_array array of filters for query
+ * @return string value containing the SQL query
+ */
+function build_edj_shortcode_query($table_name, $filters_array) {
+
+	/*
+		Query parmeters:
+		SELECT: * 
+			While the table might be a limited dataset, the lightbox shows the full dataset
+		WHERE: empty or LIKE
+			WHERE (Column1 LIKE '%keyword1%' AND Column2 LIKE '%keyword1%')
+	*/
+	
+	$conditions = '';
+	
+	# Build the WHERE condition: 
+	# WHERE (Column1 LIKE '%keyword1%' AND Column2 LIKE '%keyword1%')
+	foreach($filters_array as $k => $v) {
+		
+		$and_string = '';
+		if ($conditions != '') {
+			$and_string = ' AND';
+		}
+			
+		$conditions .= "$and_string $k LIKE '%$v%'"; 
+	}
+	
+	# If conditions exists, add the WHERE clause
+	$where_clause = '';
+	if ($conditions != '') {
+		$where_clause = "WHERE ($conditions)";
+	}
+	
+	$sql = "SELECT * FROM $table_name $where_clause";
+	return $sql;
 }
 
 ?>
