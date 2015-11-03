@@ -142,7 +142,7 @@ function build_edj_shortcode_query($table_name, $filters_array) {
 			$and_string = ' AND';
 		}
 			
-		$conditions .= "$and_string $k LIKE '%$v%'"; 
+		$conditions .= "$and_string $table_name.$k LIKE '%$v%'"; 
 	}
 	
 	# If conditions exists, add the WHERE clause
