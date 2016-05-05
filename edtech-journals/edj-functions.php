@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	/*
 	 * Prints a message to the screen in HTML format
 	*/
-	function print_message($message, $type = "") {
+	 public static function print_message($message, $type = "") {
 	?>
 		<p class="<?php echo $type; ?>"> <?php echo $message; ?></p>
 	<?php
@@ -34,7 +34,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * can be changed without modifying every instance.
 	 * @return string a unique id
 	 */
-	function get_unique_id() {
+	 public static function get_unique_id() {
 
 		return uniqid();
 	}
@@ -44,7 +44,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * @param $file_path path to the file
 	 * @return string file name with the file size as text
 	 */
-	function get_file_size($file_path) {
+	 public static function get_file_size($file_path) {
 
 		$file_name = basename($file_path); 
 		$file_size = filesize($file_path); 
@@ -68,7 +68,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * @param $file_name name of file in which to the write the setting to
 	 * @param $value value to write to the file
 	 */
-	function write_to_settings_file($file_name, $value) {
+	 public static function write_to_settings_file($file_name, $value) {
 
 		$value = trim($value);
 		$full_path = EDJ_Functions::get_plugin_resource_directory() . $file_name;
@@ -80,7 +80,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * @param $file_name name of file in which read the value from
 	 * @return string value from the settings file
 	 */
-	function read_from_settings_file($file_name) {
+	 public static function read_from_settings_file($file_name) {
 
 		$full_path = EDJ_Functions::get_plugin_resource_directory() . $file_name;
 
@@ -95,7 +95,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * Resource directory contains all settings files or files downloaded by the plugin
 	 * @return string value to the fully qualified path of the resource directory
 	 */
-	function get_plugin_resource_directory() {
+	 public static function get_plugin_resource_directory() {
 
 		$plugins_resource_dir = EDJ_PLUGIN_BASE_DIR . "/resources";
 		
@@ -113,7 +113,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 	 * @param string $text_for_anchor_tag optional text for the anchor tag
 	 * @return string URL or the <a> tag of the debug.log file
 	 */
-	function get_debug_log_file_url($text_for_anchor_tag = "") {
+	 public static function get_debug_log_file_url($text_for_anchor_tag = "") {
 
 		$url = content_url() . "/debug.log";
 
@@ -133,7 +133,7 @@ EOD;
 	 * @param array $array containing the text to clean
 	 * @return array text array with the cleaned text
 	 */
-	function whitespace_to_underscore($array) {
+	 public static function whitespace_to_underscore($array) {
 		
 		for ($i = 0; $i < count($array); $i++) {
 
@@ -150,7 +150,7 @@ EOD;
 	 * @param array/string $array An array or string containing the text to change
 	 * @return array/string array or string with the whitespaces
 	 */
-	function underscore_to_whitespace($array) {
+	 public static function underscore_to_whitespace($array) {
 		
 		# If a string and not an array of strings
 		if (!is_array($array)) {
@@ -182,7 +182,7 @@ EOD;
 	 * Get the variable equivalent to $_SERVER['REQUEST_URI']
 	 * @return string containing the URI which was given in order to access this page; for instance, '/index.html'
 	 */
-	function get_server_path_request() {
+	 public static function get_server_path_request() {
 		
 		$uri = str_replace( '%7E', '~', $_SERVER['REQUEST_URI']);
 		return $uri;
@@ -191,7 +191,7 @@ EOD;
 	/**
 	 * Builds a list of <option> tags with table names from the database
 	 */
-	function populate_select_control_from_table_list() {
+	 public static function populate_select_control_from_table_list() {
 
 		$table_list = EDJ_Functions::get_tableList();	
 		$option_html = "<option>%s</option>";
@@ -207,7 +207,7 @@ EOD;
 	 * @param string $name name of the variable in POST: $_POST['my_var']
 	 * @returns string of the POST data or an empty string
 	 */
-	function get_post_string($name) {
+	 public static function get_post_string($name) {
 
 		$post_string = "";
 		
@@ -223,7 +223,7 @@ EOD;
 	 * @param string $name name of the variable in POST: $_POST['my_var']
 	 * @returns array of the POST data or an empty array
 	 */
-	function get_post_array($name) {
+	 public static function get_post_array($name) {
 
 		$post_array = array();
 		
@@ -239,7 +239,7 @@ EOD;
 	 * @param array $array to trim the text from
 	 * @returns array with the trimmed whitespace
 	 */
-	 function trim_array_values($array) {
+	 public static function trim_array_values($array) {
 	 
 		for ($i = 0; $i < count($array); $i++) {
 			$array[$i] = trim($array[$i]);
@@ -254,7 +254,7 @@ EOD;
 	 * Queries the database and gets a list of accessible tables
 	 * @return array containing the list of accessible tables
 	 */
-	function get_tableList() {
+	 public static function get_tableList() {
 
 		global $wpdb;
 		
@@ -277,7 +277,7 @@ EOD;
 	 * @param string $table_name name of table to get comment for
 	 * @return string containing the table comment
 	 */
-	function get_table_comment($table_name) {
+	 public static function get_table_comment($table_name) {
 
 		global $wpdb;
 		
@@ -297,7 +297,7 @@ EOD;
 	 * @param string $table_name name of table to get columns names from
 	 * @return array containing the table column names
 	 */
-	function get_table_column_names($table_name) {
+	 public static function get_table_column_names($table_name) {
 
 		global $wpdb;
 		
@@ -324,7 +324,7 @@ EOD;
 	 * @param string $db_table_name name of the table to drop
 	 * @return the error code from $wpdb->query($sql);
 	 */
-	function drop_table($db_table_name) {
+	 public static function drop_table($db_table_name) {
 
 		global $wpdb;
 		
@@ -338,7 +338,7 @@ EOD;
 	 * @param string $table_comment comment header to add to the table
 	 * @return the error code from $wpdb->query($sql);
 	 */
-	function create_empty_table($db_table_name, $table_comment) {
+	 public static function create_empty_table($db_table_name, $table_comment) {
 
 		global $wpdb;
 		
@@ -362,7 +362,7 @@ EOD;
 	 * try and determine the appropriate value. 
 	 * @param string $header_text optional text to determine the descriptor in the URL
 	 */
-	function get_url_text($header_text = "") {
+	 public static function get_url_text($header_text = "") {
 
 		#Required for the strings class
 		global $edtech_strings;

@@ -10,7 +10,7 @@
 */
 
 /**
- * EDJ_Lightbox contains the functions for creating a lightbox
+ * EDJ_Lightbox contains the static functions for creating a lightbox
  *
  * @since 0.4.0
  *
@@ -26,7 +26,7 @@
 	 * @param string $content_id id of the content linked from the <a> tag
 	 * @return string assembled HTML data ready for display
 	 */
-	function build_lightbox_with_db_object($row, $table_headers, $content_id) {
+	public static function build_lightbox_with_db_object($row, $table_headers, $content_id) {
 
 		$journal_name = $row->$table_headers[0];
 		
@@ -77,7 +77,7 @@ EOD;
 	 * @param string $inner_html_format format of the inner HTML
 	 * @return string assembled HTML data containing the category data
 	 */
-	 function build_category_column($table_headers, $inner_html_format) {
+	 public static function build_category_column($table_headers, $inner_html_format) {
 
 		# The inner for the category column
 		$category_html = "";
@@ -104,7 +104,7 @@ EOD;
 	 * @param string $journal_url_html format of the <a> tag
 	 * @return string assembled HTML data containing the journal value data
 	 */
-	function build_value_column($table_headers, $row, $inner_html_format, $journal_url_html) {
+	public static function build_value_column($table_headers, $row, $inner_html_format, $journal_url_html) {
 
 		# The inner html for the values of the journal data
 		$value_html = "";

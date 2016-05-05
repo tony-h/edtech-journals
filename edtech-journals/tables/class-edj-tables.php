@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php';	
 
 /**
- * EDJ_Functions contains commonly used static functions
+ * EDJ_Table contains the static functions for creating the table
  *
  * @since 0.4.0
  *
@@ -29,7 +29,7 @@ require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php
 	 * @param array $headers array of column titles to display
 	 * @param EDJ_Shortcode_Options $options UI control options
 	 */
-	function display_table_header($caption, $headers, $options = null) {
+	public static function display_table_header($caption, $headers, $options = null) {
 
 		if ($options == null) {
 			$options = new EDJ_Shortcode_Options();
@@ -77,7 +77,7 @@ require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php
 	/**
 	 * Displays the filter counter HTML
 	 */
-	function display_filter_counter() {
+	public static function display_filter_counter() {
 
 		global $edtech_strings;
 
@@ -93,7 +93,7 @@ require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php
 	 * Displays the column control
 	  * @param array $headers array of column titles to display
 	 */
-	function display_column_control($headers) {
+	public static function display_column_control($headers) {
 	?>
 		<div class="column-controls-container">
 			<form id="column-controls">
@@ -119,7 +119,7 @@ require_once EDJ_SHORTCODES_DIR . EDJ_CLASS_PLUGIN_SLUG . 'shortcode-options.php
 	 * @param string $target_id id of the lightbox
 	 * @return string containing the ID for the lightbox URL
 	 */
-	function display_table_row_for_lightbox($row, $columns_array, $target_id) {
+	public static function display_table_row_for_lightbox($row, $columns_array, $target_id) {
 		
 # The complete <tr> row
 $tr_html_format = <<<EOD
@@ -176,7 +176,7 @@ EOD;
 	 * @param db_object $row a database object containing the row data 
 	 * @param array $columns_array array containing the columns names to display the data for
 	 */
-	function display_table_row($row, $columns_array) {
+	public static function display_table_row($row, $columns_array) {
 
 # The complete <tr> row
 $tr_html_format = <<<EOD
@@ -223,7 +223,7 @@ EOD;
 	 * Builds a single table row for the admin page
 	 * @param array $rows array containing the data for each row
 	 */
-	function display_table_row_admin_table($rows) {
+	public static function display_table_row_admin_table($rows) {
 
 # The complete <tr> row
 $tr_html_format = <<<EOD
@@ -266,7 +266,7 @@ EOD;
 	/**
 	 * Display the table footer
 	 */
-	function display_table_footer() {
+	public static function display_table_footer() {
 	?>
 			</tbody>
 		</table>
@@ -277,7 +277,7 @@ EOD;
 	 * Displays a form for the option of showing the entire table, in pages
 	 * (only applicable for footable)
 	 */
-	function display_pagination_options($options = null) {
+	public static function display_pagination_options($options = null) {
 
 		#Required for the strings class
 		global $edtech_strings;
@@ -322,7 +322,7 @@ EOD;
 	 * (only applicable for footable)
 	 * @return boolean value of the pagination state
 	 */
-	function get_pagination_state($options = null) {
+	public static function get_pagination_state($options = null) {
 
 		# Default to true. This is the case if the variable is not set
 		$state = true;
