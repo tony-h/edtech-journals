@@ -2,7 +2,7 @@
 /*
  * Plugin Name: EdTech Journals
  * Description: A custom display for the open journals
- * Version: 0.4.0
+ * Version: 0.4.1
  * Author: Tony Hetrick (tony.hetrick@gmail.com)
  * Author URI: http://tonyhetrick.com
  * LICENSE:  GNU General Public License (GPL) version 3

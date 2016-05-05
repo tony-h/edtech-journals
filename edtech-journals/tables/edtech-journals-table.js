@@ -18,28 +18,13 @@ $(function() {
 	// Initializes the pagination form
 	initPaginationForm();
 
-	// Override any CSS styles in the table
-	setOverrideCSS();
-
 	// Fixes/modifies the filter box
 	fixFilterBox();
 
-	// FooTables page/tab event listeners
-	getFooTablePageEventListeners();
-	
-	// On FooTable page/button rebuilds, update pages shown and get new event listeners
-	$("th.footable-sortable").click(displayFooTablePages);
-	$("th.footable-sortable").click(getFooTablePageEventListeners);
-	$(":input.footable-filter").change(displayFooTablePages);
-	$(":input.footable-filter").change(getFooTablePageEventListeners);
+	// Get the filter box events
 	$(":input.footable-filter").keypress(filterKeyPressProcessJournalCount);
 	$(":input.footable-filter").change(filterChangedProcessJournalCount);
-	
-	// Set the initial viewable pages at the bottom of the table
-	displayFooTablePages();
 
-	// Initializes the pagination form
-	initPaginationForm();
 	
 	// Display the number of journals
 	updateJournalNumber() ;
@@ -96,15 +81,6 @@ $(function() {
 		$("#pagination_form").submit();
 	}
 	
-	/**
-	 * Ties into the FooTable page/tab clickable event handles
-	 * This need to be updated anytime the pages/tabs are rebuilt. This happens
-	 * when a column is sorted or the table is searched.
-	 */
-	function getFooTablePageEventListeners() {
-		$("div.pagination li.footable-page").click(displayFooTablePages);
-		$("div.pagination li.footable-page-arrow").click(displayFooTablePages);		
-	}
 	
 	/**
 	 * Hack to fix/modify the filter box
@@ -123,48 +99,6 @@ $(function() {
 		}).insertBefore("table.footable");
 	}	
 	
-	/**
-	 * Sets any custom CSS that is run after the footable table code. This is the final override.
-	 */	
-	 function setOverrideCSS() {
-		$(".footable>tfoot .pagination").css("text-align", "inherit");
-		$(".footable .pagination > ul").css("background-color", "inherit");
-	}	
-	
-	/**
-	 * Limits the viewable page selectors for FooTables.
-	 * IE nor Firefox will display it correctly
-	 */
-	function displayFooTablePages() {
-	
-		// Get the pages and actives pages
-		var pages = $("div.pagination li.footable-page");
-		var activePage = $("div.pagination li.active");
-		var totalPages = pages.length;
-		
-		// Number of pages to display
-		var pagesShown = 0;
-		
-		// Get the initial start and end page
-		var startPageNumber = parseInt(activePage.text());
-		var lastPageNumber = parseInt(startPageNumber) + pagesShown;
-		
-		// Adjust the start/end pages to the min/max limits
-		if (lastPageNumber > totalPages)
-			lastPageNumber = totalPages;
-
-		if (startPageNumber + pagesShown > totalPages)
-			startPageNumber = totalPages - pagesShown;
-		
-		// Hide all pages initially
-		pages.hide();
-		
-			
-		// Show only pages within the viewable range
-		for (var i = startPageNumber - 1; i < lastPageNumber; i++) {
-			$(pages[i]).show();
-		}
-	}
 
 	/**
 	 * Gets a names parameter from the URL

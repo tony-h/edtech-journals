@@ -126,9 +126,9 @@ function build_edj_shortcode_query($table_name, $filters_array) {
 	/*
 		Query parmeters:
 		SELECT: * 
-			While the table might be a limited dataset, the lightbox shows the full dataset
+			The table might be a limited dataset, but the lightbox always shows the full dataset
 		WHERE: empty or LIKE
-			WHERE (Column1 LIKE '%keyword1%' AND Column2 LIKE '%keyword1%')
+			WHERE (TableName.Column1 LIKE '%keyword1%' AND TableName.Column2 LIKE '%keyword1%')
 	*/
 	
 	$conditions = '';
