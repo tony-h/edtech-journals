@@ -3,11 +3,11 @@
  * The EDJ_Shortcode_Options class is storage container for the shortcodes. 
  * It also contains the master shortcode list.
  *	
- * LICENSE: The MIT License (MIT)
+ * LICENSE:  GNU General Public License (GPL) version 3
  *
  * @author     Tony Hetrick <tony.hetrick@gmail.com>
- * @copyright  [2015] [edtechjournals.org]
- * @license    http://choosealicense.com/licenses/mit/
+ * @copyright  [2016] [edtechjournals.org]
+ * @license    https://www.gnu.org/licenses/gpl.html
 */
 
 /**

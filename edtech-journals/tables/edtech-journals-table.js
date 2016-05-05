@@ -2,11 +2,11 @@
  * Handles any plugin specific code with the table. While there is some legitimate code here,
  * most of it is UI hacks for Footable. It's quite ugly, but seems to work.
  *	
- * LICENSE: The MIT License (MIT)
+ * LICENSE:  GNU General Public License (GPL) version 3
  *
  * @author     Tony Hetrick <tony.hetrick@gmail.com>
- * @copyright  [2015] [edtechjournals.org]
- * @license    http://choosealicense.com/licenses/mit/
+ * @copyright  [2016] [edtechjournals.org]
+ * @license    https://www.gnu.org/licenses/gpl.html
 */
 
 

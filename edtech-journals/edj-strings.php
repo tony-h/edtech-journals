@@ -3,11 +3,11 @@
  * The file contains all of the publicly visible string in the plugin for easy access
  * Please note: This does not include strings for the admin section
  *	
- * LICENSE: The MIT License (MIT)
+ * LICENSE:  GNU General Public License (GPL) version 3
  *
  * @author     Tony Hetrick <tony.hetrick@gmail.com>
- * @copyright  [2015] [edtechjournals.org]
- * @license    http://choosealicense.com/licenses/mit/
+ * @copyright  [2016] [edtechjournals.org]
+ * @license    https://www.gnu.org/licenses/gpl.html
 */
 
 # To localize, need to use __(string);

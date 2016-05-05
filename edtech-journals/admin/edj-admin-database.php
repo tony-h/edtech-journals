@@ -2,11 +2,11 @@
 /*
  * Contains database operations that allow the user to perform basic database operations
  *	
- * LICENSE: The MIT License (MIT)
+ * LICENSE:  GNU General Public License (GPL) version 3
  *
  * @author     Tony Hetrick <tony.hetrick@gmail.com>
- * @copyright  [2015] [edtechjournals.org]
- * @license    http://choosealicense.com/licenses/mit/
+ * @copyright  [2016] [edtechjournals.org]
+ * @license    https://www.gnu.org/licenses/gpl.html
 */
 
 # Wordpress security recommendation
